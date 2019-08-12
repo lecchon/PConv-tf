@@ -26,11 +26,11 @@ Instead of using any configuration file, you can also configurate by assigning a
 ## Training
 I use MSCOCO 2017 as training set.If you assgin your training hyper-parameters in json file, then you can run the following command in your command line:
 ``` bash
-    python train.py --config <configuration file>
+python train.py --config <configuration file>
 ```
 or you can assign arguments directly:
 ``` bash
-    python train.py --num_epoch 30 --batch_size 4 --image_size 256 --data_path <your training set path>
+python train.py --num_epoch 30 --batch_size 4 --image_size 256 --data_path <your training set path>
 ```
 Notice that some default values are set, you can ignore where the your argument value is the same with the default value!But `data_path` can not be None!
 
@@ -40,8 +40,8 @@ Developing ...
 ## Exporting Model
 In default setting, checkpoint file will be save ever 10000 steps, default store path is './model'. The .pb file will export at the end of each epoch, instead of using global step as the suffix in checkpoints, .pb files use epoch numbers.
 
-## Contract
-Welcome discussing about the codes and reporting bugs!
+## Contact
+Welcome discussing about the codes and reporting bugs!<br />
 {
   author:liangliqiang@126.com
 }
