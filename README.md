@@ -3,12 +3,12 @@ Unofficial implementation of ["Image Inpainting for Irregular Holes Using Partia
 
 ---
 
-## Requirements(just for reference)
-python                          3.6.5
-tensorflow-gpu                  1.13.1
-opencv-python                   4.0.0.21
-numpy                           1.15.4
-Pillow                          5.1.0
+## Requirements(for reference)
+* python                          3.6.5
+* tensorflow-gpu                  1.13.1
+* opencv-python                   4.0.0.21
+* numpy                           1.15.4
+* Pillow                          5.1.0
 
 ## Configuration
 Training hyperparameters configuration can be writen in a json file.For example:
