@@ -3,7 +3,7 @@ Unofficial implementation of ["Image Inpainting for Irregular Holes Using Partia
 
 ---
 
-## Requirements(for reference)
+## Requirements(for reference only)
 * python                          3.6.5
 * tensorflow-gpu                  1.13.1
 * opencv-python                   4.0.0.21
@@ -34,8 +34,12 @@ python train.py --num_epoch 30 --batch_size 4 --image_size 256 --data_path <your
 ```
 Notice that some default values are set, you can ignore where the your argument value is the same with the default value!But `data_path` can not be None!
 
-## Inference
-Developing ...
+## Test
+Test script is available!You can run the `test.py` and test your model following the prompt.
+NOTICE: please rename your input image with beginning `image_`, the mask map which prefix `mask_` and the same suffix with the input image will be used. 
+
+## Demo
+<img src="imgs/demo.png" />
 
 ## Exporting Model
 In default setting, checkpoint file will be save ever 10000 steps, default store path is './model'. The .pb file will export at the end of each epoch, instead of using global step as the suffix in checkpoints, .pb files use epoch numbers.

@@ -6,7 +6,6 @@ import sys
 import os
 import time
 from argparse import ArgumentParser
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 sys.path.append(".")
 
 from loss import Loss
@@ -60,11 +59,17 @@ def parse_args():
         type=str, default=None,
         help='json configuration file',
     )
+    parser.add_argument(
+        '-gpu', '--gpu',
+        type=str, default="0",
+        help='gpu id'
+    )
     return parser.parse_args()
 
 def main():
     args = parse_args()
     t0 = time.time()
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     ## define some variables
     global_step = tf.get_variable(name = "global_step", dtype = tf.int32, shape = [], trainable = False)
     ## initialize reader.Either using configuration json file or assigning arguments.
@@ -128,7 +133,29 @@ def main():
             saver.save(session, os.path.join(args.model_path, "model.ckpt"), step)
         ## convert to pb file at the end of every epoch
         if reader.current_epoch > epoch:
-            constant_graph = graph_util.convert_variables_to_constants(session, session.graph_def, [model.image_comp.op.name])
+            graph_def = session.graph_def
+            for node in graph_def.node:
+                if node.op == 'RefSwitch':
+                    node.op = 'Switch'
+                    for index in range(len(node.input)):
+                        if 'moving_' in node.input[index]:
+                            node.input[index] = node.input[index] + '/read'
+                elif node.op == 'AssignSub':
+                    node.op = 'Sub'
+                    if 'use_locking' in node.attr: del node.attr['use_locking']
+                elif node.op == 'AssignAdd':
+                    node.op = 'Add'
+                    if 'use_locking' in node.attr: del node.attr['use_locking']
+                elif node.op == 'Assign':
+                    node.op = 'Identity'
+                    if 'use_locking' in node.attr: del node.attr['use_locking']
+                    if 'validate_shape' in node.attr: del node.attr['validate_shape']
+                    if len(node.input) == 2:
+                    # input0: ref: Should be from a Variable node. May be uninitialized.
+                    # input1: value: The value to be assigned to the variable.
+                        node.input[0] = node.input[1]
+                        del node.input[1]
+            constant_graph = graph_util.convert_variables_to_constants(session, graph_def, [model.image_comp.op.name])
             transformed_graph_def = TransformGraph(constant_graph,
                                            [model.image.op.name,model.mask.op.name],
                                            [model.image_comp.op.name],
