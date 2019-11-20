@@ -49,5 +49,5 @@ In default setting, checkpoint file will be save ever 10000 steps, default store
 ## Contact
 Welcome discussing about the codes and reporting bugs!<br />
 {
-  author:liangliqiang@126.com
+  author:liangliqiang_gdufe@126.com
 }
