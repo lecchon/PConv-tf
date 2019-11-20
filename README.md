@@ -39,7 +39,9 @@ Test script is available!You can run the `test.py` and test your model following
 NOTICE: please rename your input image with beginning `image_`, the mask map which prefix `mask_` and the same suffix with the input image will be used. 
 
 ## Demo
-<img src="imgs/demo.png" />
+<img src="imgs/demo1.png" />
+<img src="imgs/demo2.png" />
+<img src="imgs/demo3.png" />
 
 ## Exporting Model
 In default setting, checkpoint file will be save ever 10000 steps, default store path is './model'. The .pb file will export at the end of each epoch, instead of using global step as the suffix in checkpoints, .pb files use epoch numbers.

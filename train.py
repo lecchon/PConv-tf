@@ -10,7 +10,7 @@ sys.path.append(".")
 
 from loss import Loss
 from reader import Reader
-from model import PConv
+from modelV2 import PConv
 
 from tensorflow.tools.graph_transforms import TransformGraph
 from tensorflow.python.framework import graph_io,graph_util
